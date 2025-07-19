@@ -1,20 +1,9 @@
-/*
-to do:
-
-need to add pseudocode 
-need to reformat so bracket and braces are on same line as code
-
-*/
-
-
-
-
 /* Pseudocode
 
-BUILD volunteer_opportunities data set from saved opportunities
-BUILD volunteer_schedule data set from saved schedule
-
 START
+    BUILD volunteer_opportunities data set from saved opportunities
+    BUILD volunteer_schedule data set from saved schedule
+
     DISPLAY "Welcome to Community Kitchen. What is your name:"
     GET user_name
     DISPLAY "Hello" + user_name + "!" + "Are you a volunteer or an admin:""
@@ -59,7 +48,7 @@ START
             DISPLAY "Are you finished:"
             GET user_status
 
-            IF user_status = finished THEN
+            IF user_status = yes THEN
                 EXIT
             END IF
         END LOOP
@@ -94,7 +83,7 @@ START
             DISPLAY "Are you finished:"
             GET user_status
 
-            IF user_status = finished THEN
+            IF user_status = yes THEN
                 EXIT
             END IF
         END LOOP
@@ -119,11 +108,10 @@ let inputRowNum;
    to store other arrays as elements, this allows the ability to handle hierarchical 
    or relational data; my application can utilize this data structure to store 
    volunteer opportunities.   
-*/
 
-/* Elements: Date, Start Time, End Time, Description, Number of Volunteers */
-let volunteersNeeded = 
-[
+   Elements: Date, Start Time, End Time, Description, Number of Volunteers 
+*/
+let volunteersNeeded = [
     ["8/4/2025", "6:00 PM", "7:00 PM", "Prep Main Dish", 2],
     ["8/4/2025", "6:00 PM", "7:00 PM", "Prep Salad", 1],
     ["8/4/2025", "6:00 PM", "7:00 PM", "Prep Dessert", 1],
@@ -133,8 +121,7 @@ let volunteersNeeded =
 ];
 
 /* Elements: Date, Start Time, End Time, Description, Name of Volunteer */
-let volunteersScheduled =
-[
+let volunteersScheduled = [
     ["8/4/2025", "6:00 PM", "7:00 PM", "Prep Main Dish", "Edward Martin"],
     ["8/11/2025", "6:00 PM", "7:00 PM", "Prep Salad", "Mary Smith"],
     ["8/11/2025", "6:00 PM", "7:00 PM", "Prep Dessert", "Edward Martin"]        
@@ -149,8 +136,7 @@ let role = input.question(`Hello ${name}!  Are you a volunteer or an admin: `);
    by the administrator from the features of the application that are 
    intended to be used by the volunteers. 
 */
-if (role.toUpperCase() === "ADMIN")
-{   
+if (role.toUpperCase() === "ADMIN") {   
     let password;
     let encryptedPassword;    
     let inputDate;
@@ -160,18 +146,15 @@ if (role.toUpperCase() === "ADMIN")
     let inputNumVolunteers;    
     let newEventArray;
  
-    do
-    {
+    do {
         password = input.question("Enter your password: ");
         encryptedPassword = password.split('').reverse().join('');
     } while (encryptedPassword !== "drowssap");
 
-    while (true)
-    {        
+    while (true) {        
         console.log("Current Needs:");
 
-        for (let i = 0; i < volunteersNeeded.length; i++)
-        {    
+        for (let i = 0; i < volunteersNeeded.length; i++) {    
             /* Skill from the module: Stringing Characters Together - Template literals allow us to 
             create strings that incorporate variables and expressions and create multiline strings 
             for better readability. 
@@ -182,8 +165,7 @@ if (role.toUpperCase() === "ADMIN")
 
         operationType = input.question("Select Add or Delete: ");
         
-        if (operationType.toUpperCase() === "ADD")
-        {
+        if (operationType.toUpperCase() === "ADD") {
             newEventArray = [];
             inputDate = input.question("Enter Event Date: ");
             inputStartTime = input.question("Enter Event Start Time: ") 
@@ -192,26 +174,24 @@ if (role.toUpperCase() === "ADMIN")
             inputNumVolunteers = input.question("Enter Number of Volunteers: ");
 
             /* add logic to add row */
-            newEventArray = 
-            [
+            newEventArray = [
                 inputDate, 
                 inputStartTime,
                 inputEndTime,
                 inputDescription,
                 parseInt(inputNumVolunteers)
             ];
+
             /* Skill from the module: Using Arrays - Array methods allow you to modify arrays, 
                access elements, and transform data; the push() method 
                can be utilized in my application to add new volunteer 
                opportunities to the end of the array that stores these values.
             */
-
             volunteersNeeded.push(newEventArray);
 
             console.log("Add Successful");
         }
-        else if (operationType.toUpperCase() === "DELETE")
-        {
+        else if (operationType.toUpperCase() === "DELETE") {
             inputRowNum = input.question("Which row would you like to delete: ");
 
             /* add logic to delete row */
@@ -221,14 +201,12 @@ if (role.toUpperCase() === "ADMIN")
         
         isFinished = input.question("Are you finished: ");
 
-        if (isFinished === "yes")
-        {
+        if (isFinished === "yes") {
             break;
         }
     }    
 }
-else if (role.toUpperCase() === "VOLUNTEER")
-{
+else if (role.toUpperCase() === "VOLUNTEER") {
     let rowCount = 0;
 
     /* Skill from the module: Working With Loops - Applications often require repeating 
@@ -236,14 +214,11 @@ else if (role.toUpperCase() === "VOLUNTEER")
     on multiple dates; this repetition is achieved using loops which allows 
     your code to cycle through a block of instructions repeatedly.
     */
-    while (true)
-    {
+    while (true) {
        console.log("Your are currently signed up for:");
 
-        for (let i = 0; i < volunteersScheduled.length; i++)
-        {
-            if (volunteersScheduled[i][4] === name)
-            {    
+        for (let i = 0; i < volunteersScheduled.length; i++) {
+            if (volunteersScheduled[i][4] === name) {    
                 rowCount += 1;
 
                 console.log("   "
@@ -261,11 +236,9 @@ else if (role.toUpperCase() === "VOLUNTEER")
 
         operationType = input.question("Select Add or Delete: ");
         
-        if (operationType.toUpperCase() === "ADD")
-        {
+        if (operationType.toUpperCase() === "ADD") {
             console.log("Current Needs:");
-            for (let i = 0; i < volunteersNeeded.length; i++)
-            {    
+            for (let i = 0; i < volunteersNeeded.length; i++) {    
                 console.log(`${i + 1} - ${volunteersNeeded[i][0]} - ${volunteersNeeded[i][3]} - Spots Left: ${volunteersNeeded[i][4]}
     ${volunteersNeeded[i][1]} to ${volunteersNeeded[i][2]}
 `);    
@@ -277,8 +250,7 @@ else if (role.toUpperCase() === "VOLUNTEER")
 
             console.log("Add Successful");
         }
-        else if (operationType.toUpperCase() === "DELETE")
-        {
+        else if (operationType.toUpperCase() === "DELETE") {
             inputRowNum = input.question("Which row would you like to delete: ");
 
             /* add logic to delete row */
@@ -289,8 +261,7 @@ else if (role.toUpperCase() === "VOLUNTEER")
         isFinished = input.question("Are you finished: ");
         rowCount = 0;
 
-        if (isFinished === "yes")
-        {
+        if (isFinished === "yes") {
             break;
         }
     }    
